@@ -1,0 +1,158 @@
+.team-member{
+  margin-left: auto;
+  margin-right: auto;
+  position: relative;
+  overflow: hidden;
+  &:hover{
+    .team-overlay{
+      opacity: 1;
+      visibility: visible;
+      transform: scale(1);
+    }
+  }
+  &.round-thumb{
+    text-align: center;
+    .team-image{
+      img{
+        width: 175px;
+        border-radius: 50%;
+      }
+    }
+    &.big-thumb{
+      .team-image img{
+        width: 250px;
+      }
+    }
+    .team-social{
+      margin-top: 15px;
+      >li{
+        margin: 0 5px;
+        >a{
+          border-radius: 50%;
+          border: 1px solid #e6e6e6;
+          transition: all .3s ease;
+          color: lighten(@black, 25%);
+          line-height: 38px;
+          i{
+            line-height: inherit;
+          }
+          &:hover{
+            text-shadow: none;
+            color: #fff;
+          }
+        }
+      }
+    }
+  }
+}
+
+.bp-tablet({
+  [class*="col-"]{
+    >.team-member{
+      margin-top: 25px;
+      margin-bottom: 25px;
+    }
+  }
+});
+
+.team-image{
+  position: relative;
+  overflow: hidden;
+  img{
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+.team-overlay{
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  text-align: center;
+  background-color: fade(@primary, 90%);
+  color: #fff;
+  transform: translateY(20px);
+  transition: all .3s ease;
+  opacity: 0;
+  visibility: hidden;
+  display: flex;
+  align-items: flex-end;
+  .team-info{
+    text-align: left;
+    padding-left: 20px;
+    padding-right: 20px;
+    width: 100%;
+    >h4{
+      color: #fff;
+      margin-bottom: 0;
+      font-size: 13px;
+    }
+    >span{
+      color: #fff;
+      font-size: 12px;
+    }
+  }
+  .team-social{
+    padding: 20px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    margin-top: 0;
+    >li{
+      >a, >a:hover{
+        color: #fff;
+      }
+    }
+  }
+}
+
+.team-social{
+  list-style: none;
+  padding: 0;
+  margin: 15px 0 0;
+  >li{
+    display: inline-block;
+    margin-right: 10px;
+    >a{
+      display: block;
+      color: lighten(@text, 10%);
+      font-size: 12px;
+      &:hover{
+        color: @black;
+        text-decoration: none;
+        text-shadow: 0 0 6px fade(#fff, 70%);
+      }
+    }
+  }
+}
+
+.team-info{
+  padding: 20px 0;
+  >h4{
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    margin-top: 0;
+    margin-bottom: 5px;
+    font-weight: 600;
+  }
+  >span{
+    font-size: 13px;
+    color: #999;
+    font-family: @heading_font, sans-serif;
+  }
+  >p{
+    margin-top: 10px;
+    font-size: 15px;
+  }
+}
+
+.carousel .slick-track{
+  >.team-member{
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+}

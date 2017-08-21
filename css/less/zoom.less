@@ -1,0 +1,44 @@
+img[data-action="zoom"] {
+  cursor: pointer;
+  cursor: zoom-in;
+}
+.zoom-img,
+.zoom-img-wrap {
+  position: relative;
+  z-index: 666;
+  transition: all .3s;
+}
+img.zoom-img {
+  cursor: pointer;
+  cursor: zoom-out;
+}
+.zoom-overlay {
+  z-index: 420;
+  background: #fff;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  opacity: 0;
+  transition: opacity 300ms;
+  &:before {
+    content: "\e048";
+    font-family: 'hody-icons';
+    position: absolute;
+    right: 50px;
+    top: 30px;
+    font-size: 40px;
+    cursor: pointer;
+    &:hover{
+      color: @black;
+    }
+  }
+}
+.zoom-overlay-open .zoom-overlay {
+  opacity: .98;
+}
+.zoom-overlay-open,
+.zoom-overlay-transitioning {
+  cursor: default;
+}

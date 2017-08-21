@@ -1,0 +1,15 @@
+{
+    "name": "L.E.R Space",
+    "short-name": "L.E.R Space",
+    "display": "standalone",
+    "start_url": "/",
+    "theme_color": "#ffffff",
+    "background_color": "#ffffff",
+    "icons": [
+        {
+            "src": "/media/ler-space.png",
+            "sizes": "256x256",
+            "type": "image/png"
+        }
+    ]
+}

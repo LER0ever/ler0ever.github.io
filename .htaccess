@@ -1,0 +1,11 @@
+RewriteEngine On
+
+# rongyi.ml/sheets --> rongyi.ml/sheets.html
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^([^\.]+)$ $1.html [NC,L]
+
+# http://rongyi.ml --> https://rongyi.ml
+RewriteCond %{HTTP:KERSSL} !on
+RewriteRule ^.*$ https://%{SERVER_NAME}%{REQUEST_URI} [L,R=301]
+
+ErrorDocument 404 /404.html

@@ -1,0 +1,132 @@
+.fs-menu-wrapper{
+  position: relative;
+  background-color: #fff;
+  .logo{
+    display: table;
+    height: 100px;
+    float: left;
+    transition: all .3s ease;
+    position: relative;
+    z-index: 110;
+    >a{
+      display: table-cell;
+      vertical-align: middle;
+    }
+    img{
+      max-height: 40px;
+      transition: all .5s ease;
+      display: block;
+    }
+  }
+  .fs-header-wrapper {
+    display: table;
+    width: 100%;
+    position: relative;
+    .toggle-fs-menu {
+      position: relative;
+      float: right;
+      line-height: 100px;
+      outline: none;
+      .hamburger-box{
+        height: 15px;
+      }
+      &.menu-active{
+        z-index: 9999999;
+        .hamburger-inner{
+          background-color: #fff;
+          &:before, &:after{
+            background-color: #fff;
+          }
+        }
+      }
+    }
+  }
+  .fullscreen-menu{
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: fade(#000, 85%);
+    transition: all .3s ease;
+    z-index: 999999;
+    visibility: hidden;
+    opacity: 0;
+    max-height: 100%;
+    overflow: scroll;
+    padding-top: 50px;
+    padding-bottom: 50px;
+    &.is-active{
+      opacity: 1;
+      visibility: visible;
+    }
+  }
+}
+
+.fullscreen-menu{
+  .navigation-menu{
+    list-style: none;
+    text-align: center;
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+    font-family: @heading_font, sans-serif;
+    >li{
+      border-bottom: 1px solid fade(#fff, 10%);
+      &:last-child{
+        border-bottom: 0;
+      }
+      a{
+        font-size: 28px;
+        font-weight: 600;
+        color: #fff;
+        display: inline-block;
+        padding-top: 6px;
+        padding-bottom: 6px;
+        &:hover{
+          color: #aaa;
+          background-color: transparent;
+        }
+        &:focus{
+          background-color: transparent;
+        }
+      }
+      .submenu, .sub-menu{
+        list-style: none;
+        padding-left: 0;
+        display: none;
+        padding: 15px 0;
+        >li{
+          >a{
+            color: #e2e2e2;
+            font-weight: 500;
+            font-size: 15px;
+            padding: 0 10px;
+            &:hover{
+              color: #fff;
+            }
+          }
+        }
+      }
+      >.submenu, >.sub-menu{
+        border-top: 1px solid fade(#fff, 10%);
+      }
+    }
+    li.menu-item-has-children{
+      >a{
+        position: relative;
+        &:after{
+          content: "\e131";
+          font-family: "hody-icons";
+          position: absolute;
+          right: -10px;
+          font-size: 14px;
+          height: 12px;
+          line-height: 12px;
+          top: 50%;
+          margin-top: -6px;
+        }
+      }
+    }
+  }
+}

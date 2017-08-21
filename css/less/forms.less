@@ -1,0 +1,65 @@
+.form-group{
+  margin-bottom: 25px;
+  label{
+    color: @black;
+    font-family: @heading_font, sans-serif;
+    font-weight: 500;
+    font-size: 13px;
+  }
+}
+
+.form-control{
+  height: 50px;
+  padding: 0 15px;
+  font-size: 15px;
+  line-height: 50px;
+  border: 2px solid #eee;
+  border-radius: 0;
+  box-shadow: none;
+  transition: all .3s ease;
+  &:hover, &:focus{
+    box-shadow: none;
+  }
+  &:focus{
+    border-color: @black_bg;
+  }
+  &.input-sm{
+    height: 40px;
+    line-height: 40px;
+  }
+  &::placeholder {
+    font-size: .9em;
+    opacity: .8;
+    font-family: @heading_font, sans-serif;
+    font-weight: 400;
+  }
+}
+
+textarea.form-control{
+  resize: none;
+  min-height: 110px;
+  line-height: inherit;
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
+
+.form-select{
+  border: 2px solid #eee;
+  background-color: #fff;
+  position: relative;
+  &:after{
+    content: "\e131";
+    font-family: 'hody-icons';
+    position: absolute;
+    top: 50%;
+    right: 15px;
+    margin-top: -10px;
+    height: 20px;
+    line-height: 20px;
+    font-size: 20px;
+  }
+  select{
+    appearance: none;
+    border: 0;
+  }
+}

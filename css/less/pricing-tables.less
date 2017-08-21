@@ -1,0 +1,122 @@
+section.dark-bg{
+  .pricing-table{
+    background-color: @black_bg;
+    &.featured{
+      border-color: @primary;
+    }
+    border-color: darken(@black, 10%);
+    .price{
+      h2{
+        span{
+          color: #fff;
+        }
+      }
+    }
+    .features{
+      >li{
+        color: #fff;
+        &:nth-child(even){
+          background-color: darken(@black, 2%);
+        }
+      }
+    }
+  }
+}
+
+section.grey-bg{
+  .pricing-table{
+    border: 0;
+  }
+}
+
+
+.pricing-table{
+  border: 1px solid #f3f3f3;
+  max-width: 400px;
+  padding: 45px 35px;
+  margin: 50px auto 25px;
+  position: relative;
+  width: 100%;
+  background-color: #fff;
+  box-shadow: 0 0 40px rgba(0, 0, 0, 0.05);
+  transition: all .3s ease;
+  &:hover{
+    box-shadow: 0 0 65px rgba(0, 0, 0, 0.1);
+  }
+  &.align-left{
+    padding: 0 30px;
+    text-align: left;
+    .features > li, .pricing-footer{
+      padding-left: 0;
+      padding-right: 0;
+    }
+  }
+  .bp-desktop({
+    &.featured{
+      transform: scale(1.08);
+    }
+  });
+  &.featured{
+    background-color: #fff;
+    z-index: 20;
+    .price{
+      h2{
+        color: @primary;
+      }
+    }
+  }
+  .featured-label{
+    position: absolute;
+    top: 40px;
+    right: 35px;
+    font-family: @heading_font, sans-serif;
+    font-size: 9px;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    background-color: @primary;
+    color: #fff;
+    padding: 5px 10px;
+    border-radius: 15px;
+  }
+  .pricing-head{
+    i{
+      font-size: 45px;
+      margin-bottom: 25px;
+      display: block;
+      color: @black;
+    }
+    h4{
+      font-size: 13px;
+      margin: 0;
+      font-weight: 400;
+    }
+  }
+  .price {
+    padding: 15px 0;
+    border-bottom: 1px solid #eee;
+    h2{
+      font-size: 55px;
+      font-weight: 500;
+      letter-spacing: -3px;
+      margin: 0;
+      span{
+        font-size: 18px;
+        font-weight: 400;
+        vertical-align: top;
+      }
+    }
+  }
+  .features{
+    margin-top: 15px;
+    >li{
+      padding: 8px 0;
+      span{
+        font-weight: 400;
+      }
+    }
+  }
+  .pricing-footer{
+    padding: 20px 0;
+  }
+}
