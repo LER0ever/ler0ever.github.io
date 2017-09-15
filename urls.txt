@@ -21,19 +21,19 @@ https://yirong.ml/archive.html
 https://yirong.ml/posts/1.html
 https://yirong.ml/posts/2.html
 https://yirong.ml/posts/3.html
+https://yirong.ml/tags/Conferences.html
+https://yirong.ml/tags/Free Software.html
+https://yirong.ml/tags/Rust.html
 https://yirong.ml/tags/Linux.html
 https://yirong.ml/tags/WSL.html
 https://yirong.ml/tags/Lumos.html
 https://yirong.ml/tags/AlphaGo.html
 https://yirong.ml/tags/CNNs.html
-https://yirong.ml/tags/Conferences.html
-https://yirong.ml/tags/Free Software.html
-https://yirong.ml/tags/Rust.html
-https://yirong.ml/category/Deep Learning.html
-https://yirong.ml/category/Artificial Intelligence.html
 https://yirong.ml/category/Conferences.html
 https://yirong.ml/category/Rust.html
 https://yirong.ml/category/Linux.html
 https://yirong.ml/category/Website.html
 https://yirong.ml/category/Go.html
 https://yirong.ml/category/Algorithms.html
+https://yirong.ml/category/Deep Learning.html
+https://yirong.ml/category/Artificial Intelligence.html
