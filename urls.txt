@@ -29,11 +29,11 @@ https://en.rongyi.blog/tags/Lumos.html
 https://en.rongyi.blog/tags/AlphaGo.html
 https://en.rongyi.blog/tags/CNNs.html
 https://en.rongyi.blog/tags/Conferences.html
-https://en.rongyi.blog/category/Linux.html
-https://en.rongyi.blog/category/Website.html
-https://en.rongyi.blog/category/Go.html
 https://en.rongyi.blog/category/Algorithms.html
 https://en.rongyi.blog/category/Deep Learning.html
 https://en.rongyi.blog/category/Artificial Intelligence.html
 https://en.rongyi.blog/category/Conferences.html
 https://en.rongyi.blog/category/Rust.html
+https://en.rongyi.blog/category/Linux.html
+https://en.rongyi.blog/category/Website.html
+https://en.rongyi.blog/category/Go.html
