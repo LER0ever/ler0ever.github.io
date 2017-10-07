@@ -1,11 +1,16 @@
 RewriteEngine On
 
-# rongyi.ml/sheets --> rongyi.ml/sheets.html
+# rongyi.blog/sheets --> rongyi.blog/sheets.html
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteRule ^([^\.]+)$ $1.html [NC,L]
 
-# http://rongyi.ml --> https://rongyi.ml
+# http://rongyi.blog --> https://rongyi.blog
 RewriteCond %{HTTP:KERSSL} !on
 RewriteRule ^.*$ https://%{SERVER_NAME}%{REQUEST_URI} [L,R=301]
+
+# https://rongyi.ml --> https://rongyi.blog
+RewriteBase /
+RewriteCond %{HTTP_HOST} !^rongyi.blog$ [NC]
+RewriteRule ^(.*)$ https://rongyi.blog/$1 [L,R=301]
 
 ErrorDocument 404 /404.html
