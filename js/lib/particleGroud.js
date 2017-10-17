@@ -19,20 +19,20 @@ function pause(){paused=true;}
 function start(){paused=false;draw();}
 function Particle(){this.stackPos;this.active=true;this.layer=Math.ceil(Math.random()*3);this.parallaxOffsetX=0;this.parallaxOffsetY=0;this.position={x:Math.ceil(Math.random()*canvas.width),y:Math.ceil(Math.random()*canvas.height)}
 this.speed={}
-switch(options.directionX){case 'left':this.speed.x=+(-options.maxSpeedX+(Math.random()*options.maxSpeedX)-options.minSpeedX).toFixed(2);break;case 'right':this.speed.x=+((Math.random()*options.maxSpeedX)+options.minSpeedX).toFixed(2);break;default:this.speed.x=+((-options.maxSpeedX/2)+(Math.random()*options.maxSpeedX)).toFixed(2);this.speed.x+=this.speed.x>0?options.minSpeedX:-options.minSpeedX;break;}
-switch(options.directionY){case 'up':this.speed.y=+(-options.maxSpeedY+(Math.random()*options.maxSpeedY)-options.minSpeedY).toFixed(2);break;case 'down':this.speed.y=+((Math.random()*options.maxSpeedY)+options.minSpeedY).toFixed(2);break;default:this.speed.y=+((-options.maxSpeedY/2)+(Math.random()*options.maxSpeedY)).toFixed(2);this.speed.x+=this.speed.y>0?options.minSpeedY:-options.minSpeedY;break;}}
+switch(options.directionX){case'left':this.speed.x=+(-options.maxSpeedX+(Math.random()*options.maxSpeedX)-options.minSpeedX).toFixed(2);break;case'right':this.speed.x=+((Math.random()*options.maxSpeedX)+options.minSpeedX).toFixed(2);break;default:this.speed.x=+((-options.maxSpeedX/2)+(Math.random()*options.maxSpeedX)).toFixed(2);this.speed.x+=this.speed.x>0?options.minSpeedX:-options.minSpeedX;break;}
+switch(options.directionY){case'up':this.speed.y=+(-options.maxSpeedY+(Math.random()*options.maxSpeedY)-options.minSpeedY).toFixed(2);break;case'down':this.speed.y=+((Math.random()*options.maxSpeedY)+options.minSpeedY).toFixed(2);break;default:this.speed.y=+((-options.maxSpeedY/2)+(Math.random()*options.maxSpeedY)).toFixed(2);this.speed.x+=this.speed.y>0?options.minSpeedY:-options.minSpeedY;break;}}
 Particle.prototype.draw=function(){ctx.beginPath();ctx.arc(this.position.x+this.parallaxOffsetX,this.position.y+this.parallaxOffsetY,options.particleRadius/2,0,Math.PI*2,true);ctx.closePath();ctx.fill();ctx.beginPath();for(var i=particles.length-1;i>this.stackPos;i--){var p2=particles[i];var a=this.position.x-p2.position.x
 var b=this.position.y-p2.position.y
 var dist=Math.sqrt((a*a)+(b*b)).toFixed(2);if(dist<options.proximity){ctx.moveTo(this.position.x+this.parallaxOffsetX,this.position.y+this.parallaxOffsetY);if(options.curvedLines){ctx.quadraticCurveTo(Math.max(p2.position.x,p2.position.x),Math.min(p2.position.y,p2.position.y),p2.position.x+p2.parallaxOffsetX,p2.position.y+p2.parallaxOffsetY);}else{ctx.lineTo(p2.position.x+p2.parallaxOffsetX,p2.position.y+p2.parallaxOffsetY);}}}
 ctx.stroke();ctx.closePath();}
 Particle.prototype.updatePosition=function(){if(options.parallax){if(orientationSupport&&!desktop){var ratioX=(winW-0)/(30- -30);pointerX=(tiltX- -30)*ratioX+0;var ratioY=(winH-0)/(30- -30);pointerY=(tiltY- -30)*ratioY+0;}else{pointerX=mouseX;pointerY=mouseY;}
 this.parallaxTargX=(pointerX-(winW/2))/(options.parallaxMultiplier*this.layer);this.parallaxOffsetX+=(this.parallaxTargX-this.parallaxOffsetX)/10;this.parallaxTargY=(pointerY-(winH/2))/(options.parallaxMultiplier*this.layer);this.parallaxOffsetY+=(this.parallaxTargY-this.parallaxOffsetY)/10;}
-var elWidth=element.offsetWidth;var elHeight=element.offsetHeight;switch(options.directionX){case 'left':if(this.position.x+this.speed.x+this.parallaxOffsetX<0){this.position.x=elWidth-this.parallaxOffsetX;}
-break;case 'right':if(this.position.x+this.speed.x+this.parallaxOffsetX>elWidth){this.position.x=0-this.parallaxOffsetX;}
+var elWidth=element.offsetWidth;var elHeight=element.offsetHeight;switch(options.directionX){case'left':if(this.position.x+this.speed.x+this.parallaxOffsetX<0){this.position.x=elWidth-this.parallaxOffsetX;}
+break;case'right':if(this.position.x+this.speed.x+this.parallaxOffsetX>elWidth){this.position.x=0-this.parallaxOffsetX;}
 break;default:if(this.position.x+this.speed.x+this.parallaxOffsetX>elWidth||this.position.x+this.speed.x+this.parallaxOffsetX<0){this.speed.x=-this.speed.x;}
 break;}
-switch(options.directionY){case 'up':if(this.position.y+this.speed.y+this.parallaxOffsetY<0){this.position.y=elHeight-this.parallaxOffsetY;}
-break;case 'down':if(this.position.y+this.speed.y+this.parallaxOffsetY>elHeight){this.position.y=0-this.parallaxOffsetY;}
+switch(options.directionY){case'up':if(this.position.y+this.speed.y+this.parallaxOffsetY<0){this.position.y=elHeight-this.parallaxOffsetY;}
+break;case'down':if(this.position.y+this.speed.y+this.parallaxOffsetY>elHeight){this.position.y=0-this.parallaxOffsetY;}
 break;default:if(this.position.y+this.speed.y+this.parallaxOffsetY>elHeight||this.position.y+this.speed.y+this.parallaxOffsetY<0){this.speed.y=-this.speed.y;}
 break;}
 this.position.x+=this.speed.x;this.position.y+=this.speed.y;}
