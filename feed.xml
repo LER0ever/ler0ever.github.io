@@ -4,7 +4,14 @@
     <link>https://en.rongyi.blog</link>
     <description>L.E.R Space, Yi Rong (LER0ever) Personal Homepage &amp; Blog。Life reflections, programming experience, photo-processing techniques and some of my favorite music pieces.</description>
     <managingEditor> (LER0ever)</managingEditor>
-    <pubDate>Mon, 20 Nov 2017 21:15:30 -0600</pubDate>
+    <pubDate>Wed, 27 Dec 2017 01:34:10 -0600</pubDate>
+    <item>
+      <title>在Vim中愉快地玩数独</title>
+      <link>https://en.rongyi.blog/2017/12/27/sudoku-in-vim.html</link>
+      <description>&lt;p&gt;寒假回国后用着一台小破笔记本电脑(X250)，只能连回宿舍的台式机玩耍一把。&lt;/p&gt;&#xA;&#xA;&lt;p&gt;Linux下有个程序叫做QQWing，可以用于生成不同难度的数独并且解开他们。&#xA;配合Vim用于解数独，diff用来判断数独结果&lt;del&gt;，简直是天作之合&lt;/del&gt;。&lt;/p&gt;&#xA;&#xA;&lt;h3 id=&#34;基本流程&#34;&gt;基本流程&lt;/h3&gt;&#xA;&#xA;&lt;ol&gt;&#xA;&lt;li&gt;用QQWing来生成一个数独，放进文本文件，完成生成步骤。&lt;/li&gt;&#xA;&lt;li&gt;然后用Vim、NeoVim打开文件并且人工解完数独,&lt;/li&gt;&#xA;&lt;li&gt;最后调用diff来判断前11行结果是否一致(12行之后的空间可用作草稿)。&lt;/li&gt;&#xA;&lt;/ol&gt;&#xA;&#xA;&lt;h3 id=&#34;效果如图&#34;&gt;效果如图：&lt;/h3&gt;&#xA;&#xA;&lt;ol&gt;&#xA;&lt;li&gt;运行./sudoku.sh&#xA;&lt;img src=&#34;/media/post/20171227-sudoku-in-vim/Screenshot_2017-12-27_15-13-35.png&#34; alt=&#34;&#34; /&gt;&lt;/li&gt;&#xA;&lt;li&gt;把它&lt;del&gt;想办法&lt;/del&gt;解完&#xA;&lt;img src=&#34;/media/post/20171227-sudoku-in-vim/Screenshot_2017-12-27_15-14-13.png&#34; alt=&#34;&#34; /&gt;&lt;/li&gt;&#xA;&lt;li&gt;退出Vim (&lt;code&gt;:wq&lt;/code&gt;) 后自动调用diff比对结果&#xA;&lt;img src=&#34;/media/post/20171227-sudoku-in-vim/Screenshot_2017-12-27_15-15-44.png&#34; alt=&#34;&#34; /&gt;&lt;/li&gt;&#xA;&lt;/ol&gt;&#xA;&#xA;&lt;h4 id=&#34;是不是想想都有点偷税&#34;&gt;是不是想想都有点偷税:)&lt;/h4&gt;&#xA;&#xA;&lt;h3 id=&#34;代码如下-10行bash&#34;&gt;代码如下，10行Bash&lt;/h3&gt;&#xA;&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;#!/usr/bin/env bash&#xA;qqwing --generate $@ &amp;gt; original.sudoku&#xA;qqwing --solve &amp;lt; original.sudoku &amp;gt; solution.sudoku&#xA;cp original.sudoku staging.sudoku&#xA;echo &amp;quot;↓↓↓↓↓↓Draft Area↓↓↓↓↓↓&amp;quot; &amp;gt;&amp;gt; staging.sudoku&#xA;nvim staging.sudoku&#xA;diff -w -B -u12 &amp;lt;(head -n 11 staging.sudoku) &amp;lt;(head -n 11 solution.sudoku)&#xA;if (($? != 0)); then&#xA;    echo &amp;quot;Your solution is different&amp;quot;&#xA;else&#xA;    echo &amp;quot;Your solution is correct&amp;quot;&#xA;fi&#xA;&lt;/code&gt;&lt;/pre&gt;&#xA;</description>
+      <author>LER0ever</author>
+      <pubDate>Wed, 27 Dec 2017 00:00:00 +0000</pubDate>
+    </item>
     <item>
       <title>抓取分析Rate My Professor全站数据</title>
       <link>https://en.rongyi.blog/2017/10/5/rate-my-professor-spider.html</link>
