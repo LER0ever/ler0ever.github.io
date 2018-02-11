@@ -1,0 +1,6 @@
+/ https://rongyi.blog 302 Country-cn,hk,tw
+/*  https://rongyi.blog/*   302  Country=cn,hk,tw
+/:year/:month:/:day/:slug  https://rongyi.blog/:year/:month/:day/:slug
+/posts/:num https://rongyi.blog/posts/:num
+/tags/:tag https://rongyi.blog/tags/:tag
+/category/:cat https://rongyi.blog/category/:cat
