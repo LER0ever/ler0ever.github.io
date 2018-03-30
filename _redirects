@@ -1,7 +1,1 @@
-/ https://rongyi.blog 302 Country-cn,hk,tw
-/*  https://rongyi.blog/:splat   302  Country=cn,hk,tw
-/2014/* https://rongyi.blog/2014/:splat 301
-/2015/* https://rongyi.blog/2015/:splat 301
-/2016/* https://rongyi.blog/2016/:splat 301
-/2017/* https://rongyi.blog/2017/:splat 301
-/2018/* https://rongyi.blog/2018/:splat 301
+/* https://rongyi.blog/:splat 301
