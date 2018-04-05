@@ -94,7 +94,7 @@ STL会尽可能能用这个函数的时候就不会去用<code>__insertion_sort<
 并且最快排序复杂度能够到O(n)<p>来自项目官方的跑分截图：
 <img src=/media/post/20180405-fast-sorting/pdqsort-bench.png alt><h4 id=原理-4>原理</h4><p><img src=/media/post/20180405-fast-sorting/pdqsort.gif alt><p>pdqsort采用的Block Partitioning来自最近的一篇论文<a href=http://drops.dagstuhl.de/opus/volltexte/2016/6389/pdf/LIPIcs-ESA-2016-38.pdf>Block Quicksort</a><br>并且在分区恶化时会先尝试采用随机打乱元素的方式解决问题，如果分区过度恶化才会转为堆排序。<br>pdqsort在严格上升或下降或清一色数组时排序复杂度只有O(n)<h4 id=实现>实现</h4><p>算法原作者的实现可以在<a href=https://github.com/orlp/pdqsort/blob/master/pdqsort.h>github:orlp/pdfqsort</a>里看到。<p>目前Rust社区的默认不稳定排序算法已经由原来的<code>slice::sort</code>换成了pdqsort，
 并且Rust的实现原理上在某些情况甚至比pdqsort还要快。在<a href=https://github.com/rust-lang/rust/pull/40601>这里</a>
-可以看到Rust的实现。<h4 id=时空复杂度-4>时空复杂度</h4><table><thead><tr><th align=center>最好时间<th align=center>最坏时间<th align=center>平均时间<th align=center>辅助空间<tbody><tr><td align=center>O(n)<td align=center>O(n log n)<td align=center>O(n log n)<td align=center>O(log n)</table><h3 id=三-k路归并>三. k路归并</h3><h4 id=原理-5>原理</h4><p>通常我们所说的归并排序其实就是2路归并，不断将两个有序数组合并，
+可以看到Rust的实现。<p>顺便扯一扯各类语言自带排序的实现：<ul><li>C: quicksort<li>C++: introsort<li>D: introsort<li>Swift: introsort<li>Go: introsort<li>Crystal: introsort<li>Java: dual-pivot quicksort<li>Rust: pdqsort</ul><h4 id=时空复杂度-4>时空复杂度</h4><table><thead><tr><th align=center>最好时间<th align=center>最坏时间<th align=center>平均时间<th align=center>辅助空间<tbody><tr><td align=center>O(n)<td align=center>O(n log n)<td align=center>O(n log n)<td align=center>O(log n)</table><h3 id=三-k路归并>三. k路归并</h3><h4 id=原理-5>原理</h4><p>通常我们所说的归并排序其实就是2路归并，不断将两个有序数组合并，
 同样的，给你k个数组，每次挑一个最小的数放进结果数列中，就是所谓k路归并<p>一个简单的C语言实现，来源见注释<pre><code class=language-c>/*
  * main.c
  *
