@@ -1,0 +1,153 @@
+<!doctype html><html lang=en><title>Download and stitch together OSTEP book - L.E.R Space</title><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"><meta http-equiv=x-ua-compatible content="ie=edge"><meta name=Keywords content="LER0ever,L.E.R,荣懿,Yi Rong,rongyi,blog,博客,L.E.R Space,etasry,Portus"><meta name=Description content="Python script to get Operating System: Three Easy Pieces in one single PDF"><link rel=manifest href=/manifest.json><link rel="shortcut icon" href=/favicon.ico><script>if(self!=top){top.location=this.location.href;}</script><link rel=stylesheet href=/css/bundle.css><link rel=stylesheet href=/css/hody-icons.css><link rel=stylesheet href=/css/hljs-dracula.css><link rel=stylesheet href=/css/style.css><link rel=stylesheet href=/fonts/fonts.css><link rel=stylesheet href=/search/css/search.css><div id=loader><div class=centrize><div class=v-center><div id=mask><svg class="preloader-icon" width="34" height="38" viewbox="0 0 34 38"><path class="preloader-path" stroke-dashoffset="0" d="M29.437 8.114 19.35 2.132c-1.473-.86-3.207-.86-4.68.0L4.153 8.114C2.68 8.974 1.5 10.56 1.5 12.28v11.964c0 1.718 1.22 3.306 2.69 4.165l10.404 5.98c1.47.86 3.362.86 4.834.0l9.97-5.98c1.472-.86 2.102-2.45 2.102-4.168V12.28c0-1.72-.59-3.306-2.063-4.166z"/></svg></div></div></div></div><div id=wrapper><nav id=navbar><div class=navbar-wrapper><div class=container><div class=logo><a href=/><h2 class=logo-text>L.E.R Space</h2></a></div><div class=menu-extras><div class=menu-item><div class=open-search-form><a href id=searchbtn><i class=hc-search></i></a></div></div><div class=menu-item><div class=nav-toggle><a class=menu-toggle href=#><div class=hamburger><div class=hamburger-box><div class=hamburger-inner></div></div></div></a></div></div></div><div id=navigation><ul class="navigation-menu nav"><li class=menu-item><a href=/>主页</a><li class=menu-item><a href=/about>关于我</a><li class=menu-item><a href=/blog>博客</a><li class=menu-item><a href=/links>链接</a><li class=menu-item><a href=/contact>联系</a><li class=menu-item><a href=/projects>软件</a><li class=menu-item><a href=/cos>图像后期</a><li class=menu-item><a href=/sheets>乐谱分享</a><li class=menu-item><a href=/archive>归档</a><li class="menu-item-has-children last-elements"><a href=/en target=_blank><i class=hc-globe></i></a><ul class=submenu><li><a href=/ target=_blank>简体中文</a><li><a href=/en target=_blank>English</a></ul></ul></div></div></div></nav><section class="page-title parallax-section"><div class=row-parallax-bg><div class=parallax-wrapper><div class=parallax-bg><img src=/media/posts/macandnotebook.jpg alt></div></div><div class=parallax-overlay></div></div><div class=centrize><div class=v-center><div class=container><div class=single-post-info><h6><span><i class=hc-clock></i>Posted on</span>
+<span class=post-time>April 16, 2018</span>
+<span>in <a href=/category/Dark%20Magic.html>Dark Magic</a></span></h6><div class="title text-center"><h1>Download and stitch together OSTEP book</h1></div><div class=post-author><img src=/media/author.jpg alt><a href=#>by LER0ever</a></div></div></div></div></div></section><section><div class=container><div class=row><div class=col-md-8><article class=post-single><div class=post-body><h2 id=what-is-ostep>What is OSTEP</h2><p>I&rsquo;m currently taking the Undergrad OS course at UW-Madison this semester (CS537: Operating System).<br>Our professor is <a href=http://pages.cs.wisc.edu/~remzi/>REMZI H. ARPACI-DUSSEAU</a>
+who is apparently very famous in the OS industry (at least that&rsquo;s what I think considering the google search result).<p>We are using a textbook called <em>Operating System: Three Easy Pieces(OSTEP)</em> written by Remzi.
+Remzi thinks that textbook should be free, c.f. <a href=http://from-a-to-remzi.blogspot.com/>his blog</a>.
+And that&rsquo;s what he did for the OSTEP book, it is available in seperate PDFs online for free to download and read.<p>However, I&rsquo;m just too lazy to download tens of files or read them in the browser (which is absolutely painful).<p><strong>So I wrote a script</strong><p>to download all the chapters in their pdf forms and stitch them together into one single PDF with table of contents.<h2 id=here-is-how>Here is how</h2><h4 id=get-all-the-links>Get all the links</h4><p>It is easy to notice that the links to chapters of the book has a unique pattern that can distinguish them from other links.<p>They all:<ul><li>ends with extension <code>.pdf</code><li>they have a siblin called <code>small</code> which contains the chapter number<li>they have a parent called <code>td</code> which is a colume in the chapter list table</ul><p>Therefore we just need to search through all those links and sort them in the order of chapter number
+to get all the seperate pdfs.<p>To achieve that, we use BeautifulSoup to parse the website source:<pre><code class=language-python>from bs4 import BeautifulSoup
+import requests
+base_url = 'http://pages.cs.wisc.edu/~remzi/OSTEP/'
+html = requests.get(base_url)
+soup = BeautifulSoup(html.text, 'html.parser')
+links = {}
+for link in soup.find_all('a'):
+    value = link.get('href')
+    if value and value.endswith('pdf'):
+        parent = link.find_parent(&quot;td&quot;)
+        chap_num = parent.find_all(&quot;small&quot;)
+        if (chap_num):
+            print(str(chap_num[0].contents[0]) + &quot; &quot; + base_url + value)
+</code></pre><p>And this should give you the output like:<pre><code>∅ everette @ LER0ever-Desktop [Code/Python/ostep] → python exp.py
+3 http://pages.cs.wisc.edu/~remzi/OSTEP/dialogue-virtualization.pdf
+12 http://pages.cs.wisc.edu/~remzi/OSTEP/dialogue-vm.pdf
+25 http://pages.cs.wisc.edu/~remzi/OSTEP/dialogue-concurrency.pdf
+35 http://pages.cs.wisc.edu/~remzi/OSTEP/dialogue-persistence.pdf
+4 http://pages.cs.wisc.edu/~remzi/OSTEP/cpu-intro.pdf
+13 http://pages.cs.wisc.edu/~remzi/OSTEP/vm-intro.pdf
+26 http://pages.cs.wisc.edu/~remzi/OSTEP/threads-intro.pdf
+36 http://pages.cs.wisc.edu/~remzi/OSTEP/file-devices.pdf
+1 http://pages.cs.wisc.edu/~remzi/OSTEP/dialogue-threeeasy.pdf
+5 http://pages.cs.wisc.edu/~remzi/OSTEP/cpu-api.pdf
+14 http://pages.cs.wisc.edu/~remzi/OSTEP/vm-api.pdf
+27 http://pages.cs.wisc.edu/~remzi/OSTEP/threads-api.pdf
+37 http://pages.cs.wisc.edu/~remzi/OSTEP/file-disks.pdf
+2 http://pages.cs.wisc.edu/~remzi/OSTEP/intro.pdf
+6 http://pages.cs.wisc.edu/~remzi/OSTEP/cpu-mechanisms.pdf
+15 http://pages.cs.wisc.edu/~remzi/OSTEP/vm-mechanism.pdf
+28 http://pages.cs.wisc.edu/~remzi/OSTEP/threads-locks.pdf
+38 http://pages.cs.wisc.edu/~remzi/OSTEP/file-raid.pdf
+7 http://pages.cs.wisc.edu/~remzi/OSTEP/cpu-sched.pdf
+16 http://pages.cs.wisc.edu/~remzi/OSTEP/vm-segmentation.pdf
+29 http://pages.cs.wisc.edu/~remzi/OSTEP/threads-locks-usage.pdf
+39 http://pages.cs.wisc.edu/~remzi/OSTEP/file-intro.pdf
+8 http://pages.cs.wisc.edu/~remzi/OSTEP/cpu-sched-mlfq.pdf
+17 http://pages.cs.wisc.edu/~remzi/OSTEP/vm-freespace.pdf
+30 http://pages.cs.wisc.edu/~remzi/OSTEP/threads-cv.pdf
+40 http://pages.cs.wisc.edu/~remzi/OSTEP/file-implementation.pdf
+9 http://pages.cs.wisc.edu/~remzi/OSTEP/cpu-sched-lottery.pdf
+18 http://pages.cs.wisc.edu/~remzi/OSTEP/vm-paging.pdf
+31 http://pages.cs.wisc.edu/~remzi/OSTEP/threads-sema.pdf
+41 http://pages.cs.wisc.edu/~remzi/OSTEP/file-ffs.pdf
+10 http://pages.cs.wisc.edu/~remzi/OSTEP/cpu-sched-multi.pdf
+19 http://pages.cs.wisc.edu/~remzi/OSTEP/vm-tlbs.pdf
+32 http://pages.cs.wisc.edu/~remzi/OSTEP/threads-bugs.pdf
+42 http://pages.cs.wisc.edu/~remzi/OSTEP/file-journaling.pdf
+11 http://pages.cs.wisc.edu/~remzi/OSTEP/cpu-dialogue.pdf
+20 http://pages.cs.wisc.edu/~remzi/OSTEP/vm-smalltables.pdf
+33 http://pages.cs.wisc.edu/~remzi/OSTEP/threads-events.pdf
+43 http://pages.cs.wisc.edu/~remzi/OSTEP/file-lfs.pdf
+21 http://pages.cs.wisc.edu/~remzi/OSTEP/vm-beyondphys.pdf
+34 http://pages.cs.wisc.edu/~remzi/OSTEP/threads-dialogue.pdf
+44 http://pages.cs.wisc.edu/~remzi/OSTEP/file-ssd.pdf
+22 http://pages.cs.wisc.edu/~remzi/OSTEP/vm-beyondphys-policy.pdf
+45 http://pages.cs.wisc.edu/~remzi/OSTEP/file-integrity.pdf
+23 http://pages.cs.wisc.edu/~remzi/OSTEP/vm-vax.pdf
+46 http://pages.cs.wisc.edu/~remzi/OSTEP/file-dialogue.pdf
+24 http://pages.cs.wisc.edu/~remzi/OSTEP/vm-dialogue.pdf
+47 http://pages.cs.wisc.edu/~remzi/OSTEP/dialogue-distribution.pdf
+48 http://pages.cs.wisc.edu/~remzi/OSTEP/dist-intro.pdf
+49 http://pages.cs.wisc.edu/~remzi/OSTEP/dist-nfs.pdf
+50 http://pages.cs.wisc.edu/~remzi/OSTEP/dist-afs.pdf
+51 http://pages.cs.wisc.edu/~remzi/OSTEP/dist-dialogue.pdf
+
+∅ everette @ LER0ever-Desktop [Code/Python/ostep] → 
+
+</code></pre><h4 id=stitch-them-together>Stitch them together</h4><p>In order to build a single PDF with table of contents in the right position,
+I tried various pdf tools for concatanting PDFs. And <strong>pdftk</strong> turns out working pretty well.<p>The limitation is that I can only insert TOC.pdf inside the single big PDF file
+instead of using the PDF&rsquo;s outline feature. (I guess that&rsquo;s what you have to pay
+unless you buy the electronic version for <code>$10</code>)<p>So the final script, which processes the webpage, downloads the seperate pdfs and combines them together,
+is as follows<pre><code class=language-python>#!/usr/bin/env python
+
+import requests, os, subprocess, shutil
+from bs4 import BeautifulSoup
+from collections import OrderedDict
+
+base_url = 'http://pages.cs.wisc.edu/~remzi/OSTEP/'
+html = requests.get(base_url)
+bs = BeautifulSoup(html.text, 'html.parser')
+links = {}
+for link in bs.find_all('a'):
+    value = link.get('href')
+    if value and value.endswith('pdf'):
+        parent = link.find_parent(&quot;td&quot;)
+        chapter_num = parent.find_all(&quot;small&quot;)
+        if(chapter_num):
+            num = chapter_num[0].contents[0]
+            key = &quot;%02d&quot; % (int(num),)
+            links[key] = value
+            print(str(num) + &quot;: &quot; + base_url + value)
+        else:
+            # 00x is smaller than 0x
+            if value == 'preface.pdf':
+                links['000'] = value
+            if value == 'toc.pdf':
+                links['001'] = value
+ordered = OrderedDict(sorted(links.items()))
+
+out_path = 'OSTEP'
+if not os.path.exists(out_path):
+    os.makedirs(out_path)
+for chpt,resource in ordered.items():
+    response = requests.get(base_url + resource)
+    with open('{0}/{1}_{2}'.format(out_path, chpt, resource), 'wb') as f:
+        f.write(response.content)
+        print(chpt + resource + &quot; downloaded&quot;)
+owd = os.getcwd()
+os.chdir(out_path)
+if os.path.isfile(&quot;OSTEP.pdf&quot;):
+    os.remove(&quot;OSTEP.pdf&quot;)
+print(&quot;combining all into one ...&quot;)
+proc = subprocess.Popen('pdftk *.pdf cat output ../OSTEP.pdf', shell=True)
+proc.wait()
+os.chdir(owd)
+shutil.rmtree(&quot;OSTEP&quot;)
+print(&quot;done&quot;)
+</code></pre><p>Here we <strong>go</strong>, but still, please support Remzi by buying a hardcopy textbook or an electronic version.<p><strong>It&rsquo;s certainly worth the price!</strong></div><hr><div class=post-tags><a href=/tags/Scrawler.html>Scrawler</a></div></article></div><div class="col-md-3 col-md-offset-1"><div id=sidebar><div class=widget><h5>搜索</h5><form class=searchform action=/><input class=form-control type=search required name=s placeholder="Tap or double `Alt` to search ..." id=searchbox></form></div><div class=widget><h5>文章大纲</h5><div class=textwidget><p><a href=#What%20is%20OSTEP><i class=hc-code-working></i>&nbsp; What is OSTEP</a><br><a href=#Here%20is%20how><i class=hc-code-working></i>&nbsp; Here is how</a><br></div></div><div class=widget><h5>近期文章</h5><ul><li><a href=/2018/4/16/get-ostep.html>Download and stitch together OSTEP book</a><li><a href=/2018/4/7/gcj2018.html>谷歌代码酱2018</a><li><a href=/2018/4/5/fast-sorting.html>高性能排序算法</a><li><a href=/2018/2/19/linux-programming-with-vs.html>Visual Studio下开发Linux程序</a><li><a href=/2018/2/11/2018-spring-festival-gala.html>麦迪逊2018狗年春晚</a><li><a href=/2018/1/15/20-years-into-the-world.html>我的前20年</a><li><a href=/2017/12/27/sudoku-in-vim.html>在Vim中愉快地玩数独</a><li><a href=/2017/10/5/rate-my-professor-spider.html>抓取分析Rate My Professor全站数据</a><li><a href=/2017/8/15/new-space.html>全新网站上线</a><li><a href=/2017/7/5/ycm-setup.html>YouCompleteMe Qt5 配置</a></ul></div><div class=widget><h5>分类</h5><a href=/category/Dark%20Magic.html><i class=hc-albums></i>&nbsp; Dark Magic</a>(1)<br><a href=/category/Go.html><i class=hc-albums></i>&nbsp; Go</a>(1)<br><a href=/category/Linux.html><i class=hc-albums></i>&nbsp; Linux</a>(3)<br><a href=/category/Qt.html><i class=hc-albums></i>&nbsp; Qt</a>(1)<br><a href=/category/Rust.html><i class=hc-albums></i>&nbsp; Rust</a>(1)<br><a href=/category/Vim.html><i class=hc-albums></i>&nbsp; Vim</a>(1)<br><a href=/category/%e4%ba%ba%e5%b7%a5%e6%99%ba%e8%83%bd.html><i class=hc-albums></i>&nbsp; 人工智能</a>(1)<br><a href=/category/%e4%ba%ba%e7%94%9f%e9%9a%8f%e7%ac%94.html><i class=hc-albums></i>&nbsp; 人生随笔</a>(1)<br><a href=/category/%e4%bc%9a%e8%ae%ae.html><i class=hc-albums></i>&nbsp; 会议</a>(1)<br><a href=/category/%e5%bc%80%e5%8f%91%e7%8e%af%e5%a2%83.html><i class=hc-albums></i>&nbsp; 开发环境</a>(3)<br><a href=/category/%e6%99%ba%e8%83%bd%e5%ae%b6%e5%ba%ad.html><i class=hc-albums></i>&nbsp; 智能家庭</a>(1)<br><a href=/category/%e6%b7%b1%e5%ba%a6%e5%ad%a6%e4%b9%a0.html><i class=hc-albums></i>&nbsp; 深度学习</a>(2)<br><a href=/category/%e6%b8%b8%e8%ae%b0.html><i class=hc-albums></i>&nbsp; 游记</a>(1)<br><a href=/category/%e7%9b%b8%e5%86%8c.html><i class=hc-albums></i>&nbsp; 相册</a>(3)<br><a href=/category/%e7%ae%97%e6%b3%95.html><i class=hc-albums></i>&nbsp; 算法</a>(5)<br><a href=/category/%e7%bd%91%e7%ab%99%e8%bf%90%e7%bb%b4.html><i class=hc-albums></i>&nbsp; 网站运维</a>(5)<br><a href=/category/%e9%bb%91%e9%ad%94%e6%b3%95.html><i class=hc-albums></i>&nbsp; 黑魔法</a>(3)<br></div><div class=widget><h5>热门标签</h5><div class=tagcloud><a href=/tags/ACM/GCJ.html style=font-size:8pt><i class=hc-pricetag></i>&nbsp; ACM/GCJ</a>
+<a href=/tags/AlphaGo.html style=font-size:8pt><i class=hc-pricetag></i>&nbsp; AlphaGo</a>
+<a href=/tags/CNNs.html style=font-size:8pt><i class=hc-pricetag></i>&nbsp; CNNs</a>
+<a href=/tags/CSSA.html style=font-size:8pt><i class=hc-pricetag></i>&nbsp; CSSA</a>
+<a href=/tags/Israfil.html style=font-size:8pt><i class=hc-pricetag></i>&nbsp; Israfil</a>
+<a href=/tags/Linux.html style=font-size:8pt><i class=hc-pricetag></i>&nbsp; Linux</a>
+<a href=/tags/Lumos.html style=font-size:8pt><i class=hc-pricetag></i>&nbsp; Lumos</a>
+<a href=/tags/PokemonGo.html style=font-size:8pt><i class=hc-pricetag></i>&nbsp; PokemonGo</a>
+<a href=/tags/Portus.html style=font-size:8pt><i class=hc-pricetag></i>&nbsp; Portus</a>
+<a href=/tags/Rust.html style=font-size:8pt><i class=hc-pricetag></i>&nbsp; Rust</a>
+<a href=/tags/Scrawler.html style=font-size:8pt><i class=hc-pricetag></i>&nbsp; Scrawler</a>
+<a href=/tags/Sudoku.html style=font-size:8pt><i class=hc-pricetag></i>&nbsp; Sudoku</a>
+<a href=/tags/UW-Madison.html style=font-size:8pt><i class=hc-pricetag></i>&nbsp; UW-Madison</a>
+<a href=/tags/Vim.html style=font-size:8pt><i class=hc-pricetag></i>&nbsp; Vim</a>
+<a href=/tags/Visual%20Studio.html style=font-size:8pt><i class=hc-pricetag></i>&nbsp; Visual Studio</a>
+<a href=/tags/WSL.html style=font-size:8pt><i class=hc-pricetag></i>&nbsp; WSL</a>
+<a href=/tags/%e4%bc%9a%e8%ae%ae.html style=font-size:8pt><i class=hc-pricetag></i>&nbsp; 会议</a>
+<a href=/tags/%e6%8a%80%e6%9c%af%e6%80%a7%e6%b3%84%e6%84%a4.html style=font-size:8pt><i class=hc-pricetag></i>&nbsp; 技术性泄愤</a>
+<a href=/tags/%e6%97%a0%e7%97%85%e5%91%bb%e5%90%9f.html style=font-size:8pt><i class=hc-pricetag></i>&nbsp; 无病呻吟</a>
+<a href=/tags/%e6%98%8e%e5%b0%bc%e8%8b%8f%e8%be%be.html style=font-size:8pt><i class=hc-pricetag></i>&nbsp; 明尼苏达</a>
+<a href=/tags/%e6%99%ba%e8%83%bd%e5%ae%b6%e5%ba%ad.html style=font-size:8pt><i class=hc-pricetag></i>&nbsp; 智能家庭</a>
+<a href=/tags/%e6%b8%b8%e8%ae%b0.html style=font-size:8pt><i class=hc-pricetag></i>&nbsp; 游记</a>
+<a href=/tags/%e7%88%ac%e8%99%ab.html style=font-size:8pt><i class=hc-pricetag></i>&nbsp; 爬虫</a>
+<a href=/tags/%e8%87%aa%e7%94%b1%e8%bd%af%e4%bb%b6.html style=font-size:8pt><i class=hc-pricetag></i>&nbsp; 自由软件</a></div></div></div></div></div></div></section><section id=comment><script src=/js/ddisqus.js></script><section class=grey-bg><div class=container><div id=disqus_thread></div><div id=load-disqus style=text-align:center><button class="btn btn-color" onclick='disqus.boot("l-e-r-space-cn");'>加载/发表评论</button></div><noscript>Please enable JavaScript to view the <a href=https://disqus.com/?ref_noscript rel=nofollow>comments
+powered by Disqus.</a></noscript></div></section></section><footer id=footer><div class=footer-widgets><div class=container><div class=row><div class="col-md-3 col-sm-6"><div class=widget><figure class="footer-logo mb-15"><p class=footer-logo-text>L.E.R Space</figure><div class=textwidget><p><img src=/media/misc/uw-crest.svg width=20 alt>
+UW-Madison<br>2405 Hill Waters<br>1200 Observatory Drive<br>Madison, WI 53706-1212<p>etasry@gmail.com<br>+1 608-504-1266</div></div></div><div class="col-md-2 col-sm-6"><div class=widget><h5>页面</h5><div class=menu-footer><ul><li><a href=/about.html>关于我</a><li><a href=/contact.html>联系</a><li><a href=/projects.html>软件</a><li><a href=/sheets.html>乐谱分享</a><li><a href=/posts/1>博客</a></ul></div></div></div><div class="col-md-2 col-sm-6"><div class=widget><h5>Meta</h5><div class=menu-footer><ul><li><a href=/feed.xml>RSS 订阅</a><li><a href=/sitemap.xml>网站地图</a><li><a href=/portus.html>Portus 状态</a><li><a href=/license.html>法律信息</a></ul></div></div></div><div class="col-md-5 col-sm-6"><div class=widget><h5>网站信息</h5><div class=menu-footer><p>本站由<b>在下</b>编写的 <a href=/portus.html>Portus Engine 1.3.7</a> 强力驱动<p>部署源 <b>[everette@LER0ever-Desktop-Manjaro]</b><p>托管于 <b>Hostker</b> 和 <b>Netlify</b><p>本站已持续运行<b id=time-dnum>...</b>天<b id=time-hnum>...</b>小时<p>站点内容采用 <a href=https://creativecommons.org/licenses/by-nc-nd/4.0/deed.zh target=_blank>知识共享署名-非商业性使用-禁止演绎 4.0 国际许可协议</a> 进行许可<img style=height:20px src=/media/footer/by-nc-nd.svg><p><a target=_blank href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=32050702010247" style=display:inline-block;text-decoration:none;height:20px;line-height:20px><img src=/media/footer/sgwab.png style=float:left>苏公网安备 32050702010247号</a></p><script>var now=new Date();function createtime(){var grt=new Date("07/25/2013 21:51:00");now.setTime(now.getTime()+250);days=(now-grt)/1000/60/60/24;dnum=Math.floor(days);hours=(now-grt)/1000/60/60-(24*dnum);hnum=Math.floor(hours);document.getElementById("time-dnum").innerHTML=dnum;document.getElementById("time-hnum").innerHTML=hnum;}
+createtime();</script></div></div></div></div></div></div><div class=footer-copy><div class=container><div class=row><div class=col-sm-6><ul class=social-list><li class=social-item-linkedin><a target=_blank href=http://www.linkedin.com/in/LER0ever/><i class=hc-linkedin></i></a><li class=social-item-facebook><a target=_blank href=https://www.facebook.com/LER0ever><i class=hc-facebook></i></a><li class=social-item-twitter><a target=_blank href=https://twitter.com/LER0ever><i class=hc-twitter></i></a><li class=social-item-github><a target=_blank href=https://github.com/LER0ever><i class=hc-github></i></a><li class=social-item-telegram><a target=_blank href=https://t.me/LER0ever><i class=hc-paper-plane></i></a></ul></div><div class=col-sm-6><div class=copy-text><p>版权所有 © 2013 - 2018 LER0ever 保留所有权利。</div></div><div id=toTop><i class=hc-arrow-dropup></i></div></div></div></div></footer></div><div class=search-tool style=position:fixed;top:0;bottom:0;left:0;right:0;opacity:.95;background-color:#111;z-index:9999;display:none><input class="form-control search-content" id=search-content style=position:fixed;top:60px placeholder="文章标题 分类 标签 (L.E.R Space 站内搜索)"><div style=position:fixed;top:16px;right:16px><img src=/search/img/close.png id=close-btn></div></div><script src=/js/jquery.js></script><script src=/js/bundle.js></script><script src=/js/SmoothScroll.js></script><script src=/js/highlight.pack.js></script><script>hljs.initHighlightingOnLoad();</script><script src=/search/js/search.js></script><script src=/search/js/bootstrap3-typeahead.min.js></script><script src=/js/main.js></script><script>if(navigator.serviceWorker){navigator.serviceWorker.register('/js/sw.js').then(function(registration){}).catch(function(err){});}</script><script>(function(){var bp=document.createElement('script');var curProtocol=window.location.protocol.split(':')[0];if(curProtocol==='https'){bp.src='https://zz.bdstatic.com/linksubmit/push.js';}
+else{bp.src='http://push.zhanzhang.baidu.com/push.js';}
+var s=document.getElementsByTagName("script")[0];s.parentNode.insertBefore(bp,s);})();</script><script>window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;ga('create','UA-81922310-1','auto');ga('send','pageview');</script><script async src=//www.google-analytics.com/analytics.js></script><script>var _hmt=_hmt||[];(function(){var hm=document.createElement("script");hm.src="//hm.baidu.com/hm.js?10782233f36489cdb8181f5e3166973d";var s=document.getElementsByTagName("script")[0];s.parentNode.insertBefore(hm,s);})();</script>
