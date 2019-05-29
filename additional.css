@@ -1,0 +1,54 @@
+#navbar .navigation-menu li.current_page_item>a,#aside-nav .navigation-menu li.current_page_item>a {
+    color: #2196f3 !important;
+}
+
+#navbar.stick .navigation-menu>li>a {
+        color: #242424 !important;
+    }
+
+#navbar .navigation-menu>li>a { 
+		font-size: 15px;
+}
+
+/* Blockquote style for Pages as well */
+
+.page-single blockquote {
+    position: relative
+}
+
+.page-single blockquote p {
+    font-family: lora,-apple-system,helvetica neue,Helvetica,nimbus sans l,Arial,liberation sans,pingfang sc,hiragino sans gb,source han sans cn,source han sans sc,microsoft yahei,wenquanyi micro hei,wenquanyi zen hei,st heiti,SimHei,wenquanyi zen hei sharp,sans-serif;
+    font-weight: 350;
+    font-size: 16px;
+    color: #1f1f1f;
+    border-left: 2px solid #1f1f1f;
+    margin: 10px 0;
+    padding: 10px;
+}
+
+.page-single blockquote p:before {
+    content: open-quote
+}
+
+.page-single blockquote p:after {
+    content: close-quote
+}
+
+/* Post BlockQuote Font Tweak */
+.post-single .post-body blockquote p {
+    font-weight: 700;
+    font-size: 17px;
+}
+
+.title h4.upper {
+    font-size: 17px;
+}
+
+body {
+	  font-size: 17px;
+}
+
+section {
+    padding-top: 60px;
+    padding-bottom: 60px;
+}
