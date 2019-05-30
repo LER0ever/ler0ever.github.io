@@ -1,7 +1,10 @@
 
 /about*  https://rongyi.io/about 301
 /contact* https://rongyi.io/contact 301
-
-
+/cos* https://rongyi.io/cos 301
+/links* https://rongyi.io/links 301
+/sheets* https://rongyi.io/sheets 301
+/en/about* https://rongyi.io/en/about 301
+/en/contact* https://rongyi.io/en/contact 301
 
 /* https://rongyi.io/:splat 301!
